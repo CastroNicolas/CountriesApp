@@ -1,0 +1,28 @@
+.landingBody {
+    background-image: url('../../assets/images/pexels-pixabay-41949.jpg');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.landingButton {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: #082e4700;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.7s;
+    outline: none; 
+}
+
+.landingButton:hover {
+    background-color: #143d58cc;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+
