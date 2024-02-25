@@ -2,14 +2,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { CountriesCards } from "../../Components/Cards/CountriesCards"
 import { useEffect, useState } from "react";
-import { filterByContinent, getAllCountries, sortCountries } from "../../Redux/actions";
+import { filterByContinent, filterByPopulation, getAllCountries, sortCountries } from "../../Redux/actions";
 import './Home.css'
+import { Navbar } from '../../Components/NavBar/Navbar';
 
 
 export const HomePage = () => {
   const [continent, setContinent] = useState('');
   const [order, setOrder] = useState('');
-
+  const [orderPopulation, setOrderPopulation] = useState('');
 
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries.allCountries) || [];
@@ -25,9 +26,16 @@ export const HomePage = () => {
     if (filteredResults.length === 0) {
       setOrder('')
       setContinent('')
+      setOrderPopulation('')
     }
   }, [filteredResults]);
   
+  const handleResetFilters = () => {
+  
+    dispatch(filterByContinent('All'));
+    dispatch(sortCountries('All'));
+  }; 
+
   const handleContinentFilter = (e) => {
     dispatch(filterByContinent(e.target.value));
     setContinent(e.target.value)
@@ -36,9 +44,15 @@ export const HomePage = () => {
     dispatch(sortCountries(e.target.value));
     setOrder(e.target.value)
   };
+  const handleSortPopulation = (e) => {
+    dispatch(filterByPopulation(e.target.value));
+    setOrderPopulation(e.target.value)
+  };
   return (
     <div className="HomeBody">
-      <div className="HomeContainer">
+      <Navbar />
+      <div className='FiltersContainer'>
+
           <select value={continent} onChange={handleContinentFilter}>
             <optgroup label='Filter by Continent:'>
             <option value="All">All Continents</option>
@@ -47,6 +61,7 @@ export const HomePage = () => {
             <option value="Asia">Asia</option>
             <option value="Africa">Africa</option>
             <option value="Oceania">Oceania</option>
+            <option value="Europe">Europe</option>
             </optgroup>
           </select>
           <select value={order} onChange={handleSortCountries}>
@@ -54,8 +69,15 @@ export const HomePage = () => {
             <option value="Ascending">Ascending</option>
             <option value="Descending">Descending</option>
             </optgroup>
+          </select> <select value={orderPopulation} onChange={handleSortPopulation}>
+            <optgroup label='Order by Population:'>
+            <option value="Ascending">Ascending</option>
+            <option value="Descending">Descending</option>
+            </optgroup>
           </select>
-        
+         <button onClick={handleResetFilters}>Reset Filters</button>
+      </div>
+      <div className="HomeContainer">
         <CountriesCards countries={toShow}/>
       </div>
     </div>

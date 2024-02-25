@@ -33,7 +33,12 @@ export const filterByActivity = (activity) => {
     payload: activity,
   };
 };
-
+export const filterByPopulation = (activity) => {
+  return {
+    type: "FILTER_BY_POPULATION",
+    payload: activity,
+  };
+};
 export const sortCountries = (order) => {
   return {
     type: "SORT_COUNTRIES",
@@ -48,3 +53,16 @@ export const filterCards = (filter) => {
   };
 };
 
+export const selectCountry = (country) => {
+  return {
+    type: 'SELECT_COUNTRIES',
+    payload: country,
+  };
+};
+
+// export const sortActivities = (order) => {
+//   return {
+//     type: "SORT_ACTIVITIES",
+//     payload: order,
+//     }
+// };

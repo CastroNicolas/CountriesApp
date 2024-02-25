@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { searchCountry } from "../../Redux/actions";
 import { useState } from "react";
-
+import '../NavBar/Navbar.css'
 // eslint-disable-next-line react/prop-types
 export const Searchbar = () => {
   const dispatch = useDispatch();

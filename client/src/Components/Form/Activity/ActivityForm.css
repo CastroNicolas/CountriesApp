@@ -1,0 +1,85 @@
+/* Estilos generales del formulario */
+.Formbody {
+  font-family: "Arial", sans-serif;
+  background-image: url('../../../assets/images/photo-1657216328535-e981d223dee3.avif');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+}
+.FormContainer {
+  margin: 20px;
+  max-width: 600px;
+  padding: 120px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  margin-left: 350px;
+}
+
+.FormButton {
+  background-color: #60ca08b4;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.FormButton:hover {
+  background-color: #5fca0859;
+}
+
+/* Estilos del formulario cuando aún no se ha creado la actividad */
+.formC {
+  display: flex;
+  flex-direction: column;
+}
+
+.formC label {
+  margin-bottom: 5px;
+}
+
+.formC input,
+select {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formCSelectMultiple {
+  height: 100px; /* Ajusta según sea necesario */
+}
+
+.formC span {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Estilos del botón de creación cuando ya se ha creado la actividad */
+.FormButtonSubmit {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.FormButtonSubmit:hover {
+  background-color: #45a049;
+}
+
+/* Estilos del botón de creación cuando se ha creado la actividad */
+.FormButton:last-child {
+  margin-left: 1100px;
+  background-color: #008cba;
+}
+
+.FormButton:last-child:hover {
+  background-color: #0077a8;
+}
