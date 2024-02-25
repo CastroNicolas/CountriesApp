@@ -1,15 +1,18 @@
 import { usePagination } from "../../Hooks/UsePagination";
 import ActivityCard from "../Card/activityCard";
 import { useState } from "react";
+import './ActivityCard.css'; // Import your CSS file for styles
+import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const ActivityCards = ({ activities }) => {
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     name: "",
     difficulty: "",
   });
 
-  const [sortOrder, setSortOrder] = useState("asc"); // Default sorting order is ascending
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const filteredActivities = activities
     .filter((activity) => {
@@ -21,10 +24,7 @@ const ActivityCards = ({ activities }) => {
     .sort((a, b) => {
       const nameA = a.name.toLowerCase();
       const nameB = b.name.toLowerCase();
-
-      // Determine the sorting order based on the selected option
       const compareResult = sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-
       return compareResult;
     });
 
@@ -44,9 +44,11 @@ const ActivityCards = ({ activities }) => {
 
   return (
     <div className="ActivitiesContainer">
+      <button className="FormButton" onClick={() => navigate("/home")}> ◀ BACK</button>
       <h2>THESE ARE THE ACTIVITIES CREATED SO FAR:</h2>
       <div className="FiltersContainer">
         <input
+        className="inputSearch"
           type="text"
           placeholder="Filter by Name"
           value={filters.name}
@@ -68,16 +70,18 @@ const ActivityCards = ({ activities }) => {
           <option value="desc">Descending</option>
         </select>
       </div>
-      {currentItems.map((activity) => (
-        <ActivityCard key={activity.id} activity={activity} />
-      ))}
-      <div className="CountryCardsControls">
-        <button className="CountryCardsButton" onClick={prevPage} disabled={currentPage === 1}>
+      <div className="ActivityCardsList">
+        {currentItems.map((activity) => (
+          <ActivityCard key={activity.id} activity={activity} />
+        ))}
+      </div>
+      <div className="ActivityCardsControls">
+        <button className="ActivityCardsButton" onClick={prevPage} disabled={currentPage === 1}>
           Previous
         </button>
-        <span className="CountryCardsSpan">Page {currentPage} of {totalPages}</span>
+        <span className="ActivityCardsSpan">Page {currentPage} of {totalPages}</span>
         <button
-          className="CountryCardsButton"
+          className="ActivityCardsButton"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >

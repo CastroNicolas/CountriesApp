@@ -22,3 +22,17 @@
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.ResetFiltersButton {
+  background-color: #00000050; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  padding: 10px 15px; /* Espaciado interno del botón */
+  border: none; /* Elimina el borde del botón */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor al pasar el ratón */
+  transition: background-color 0.3s; /* Transición suave del color de fondo */
+}
+
+.ResetFiltersButton:hover {
+  background-color: #000000; /* Cambia el color de fondo al pasar el ratón */
+}

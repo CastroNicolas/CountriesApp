@@ -75,7 +75,7 @@ export const HomePage = () => {
             <option value="Descending">Descending</option>
             </optgroup>
           </select>
-         <button onClick={handleResetFilters}>Reset Filters</button>
+         <button  className='ResetFiltersButton' onClick={handleResetFilters}>Reset Filters</button>
       </div>
       <div className="HomeContainer">
         <CountriesCards countries={toShow}/>

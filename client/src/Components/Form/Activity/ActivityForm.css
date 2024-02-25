@@ -18,7 +18,7 @@
 }
 
 .FormButton {
-  background-color: #60ca08b4;
+  background-color: #1c1d1c42;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -28,7 +28,7 @@
 }
 
 .FormButton:hover {
-  background-color: #5fca0859;
+  background-color: #1c1d1cde;
 }
 
 /* Estilos del formulario cuando aún no se ha creado la actividad */

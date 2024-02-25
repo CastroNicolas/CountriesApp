@@ -1,0 +1,29 @@
+.ActivityConteiner {
+    background-color: rgba(243, 241, 241, 0.452);
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(219, 219, 219, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .ActivityCard {
+    /* Asegura que todas las tarjetas tengan el mismo tamaño */
+    flex: 1;
+  }
+
+  
+  .ActivityCard h2 {
+    margin: 10px 0;
+    color: #000000bd;
+  }
+ 
+  .ActivityCard h3 {
+    margin: 10px 0;
+    color: #000000bd;
+  }
+
+  .ActivityCard ul {
+    margin: 10px 0;
+    color: #000000bd;
+  }

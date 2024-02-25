@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import ActivityCards from "../../components/Cards/activityCards";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const URL = "http://localhost:3001/activities";
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
-
-  const navigate = useNavigate();
 
   const getAllActivities = async () => {
     try {
@@ -26,7 +23,6 @@ const Activities = () => {
 
   return (
     <div>
-      <button onClick={() => navigate("/home")}>◀ BACK</button>
       <ActivityCards activities={activities} />
     </div>
   );

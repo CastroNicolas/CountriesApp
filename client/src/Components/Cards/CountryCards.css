@@ -2,7 +2,6 @@
 
 .CountriesCardsContainer {
   gap: 20px;
-  margin-top: 25px;
   padding: 0 90px 0 250px;
   align-items: center;
   border-radius: 10px;
@@ -13,8 +12,10 @@
 .CountryCardsControls {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 10px; /* Ajusta según sea necesario */
+  align-items: end;
+  margin-top: 20px; /* Ajusta según sea necesario */
+  margin-left: 580px; /* Ajusta según sea necesario */
+
 }
 
 .CountryCardsButton {

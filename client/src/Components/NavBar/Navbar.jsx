@@ -1,8 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { Searchbar } from "../Search/searchbar"
 import './Navbar.css'
+import { useNavigate } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
 export const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="navbar">
        <NavLink
@@ -32,7 +36,9 @@ export const Navbar = () => {
       </NavLink>
       
       <Searchbar/>
-      <button className="logout-button ">LogOut</button>
+      <button className="logout-button" 
+       onClick={() => navigate("/")}
+      >LogOut</button>
     </div>
   );
 };

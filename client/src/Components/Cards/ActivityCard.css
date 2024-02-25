@@ -1,0 +1,82 @@
+.ActivitiesContainer {
+    font-family: "Arial", sans-serif;
+    background-image: url('../../assets/images/textura-metalica-2945.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+}
+  
+  .FiltersContainer {
+    gap: 20px;
+    margin-top: 25px;
+    padding: 0 90px 0 250px;
+    align-items: center;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .ActivityCardsList {
+    /* Add styles for the list of activity cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .ActivityCardsButton {
+    padding: 10px 15px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    max-width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px; /* Ajusta según sea necesario */
+    flex: 1; /* Todos los botones ocupan la misma cantidad de espacio */
+  }
+  
+  .ActivityCardsButton:disabled {
+    background-color: #00000062;
+  }
+  
+  .ActivityCardsButton:hover:enabled {
+    background-color: #000000;
+  }
+  
+  .ActivityCardsControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajusta según sea necesario */
+    margin-left: 50px; /* Ajusta según sea necesario */
+  
+  }
+  .ActivityCardsSpan {
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  
+  .inputSearch {
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .inputSearch:hover {
+    background-color: rgba(255, 255, 255, 0.918);
+  }
+  
+  .inputSearch:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: rgba(255, 255, 255, 0.918);
+  }
+
+  

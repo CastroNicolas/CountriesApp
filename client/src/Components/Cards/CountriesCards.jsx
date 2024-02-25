@@ -8,10 +8,14 @@ export const CountriesCards = ({countries}) => {
   usePagination(countries, 10);
 
   return (
+    <div>
+
     <div className="CountriesCardsContainer">
       {currentItems.map((country) => (
         <CountryCard key={country.id} country={country} />
       ))}
+    </div>
+    
       <div className="CountryCardsControls">
         <button className="CountryCardsButton" onClick={prevPage} disabled={currentPage === 1}>
           Previous
