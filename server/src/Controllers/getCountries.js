@@ -4,7 +4,10 @@ const { Op } = require("sequelize");
 module.exports.getCountries = async (req, res) => {
   try {
     const countries = await Country.findAll({
-      include: Activity,
+      include: [{
+        model: Activity, // Specify the associated model
+        as: "activities", // Use the alias specified in the association
+      }],
     });
     res.status(200).json(countries);
   } catch (error) {
@@ -15,10 +18,12 @@ module.exports.getCountries = async (req, res) => {
 
 module.exports.getCountriesById = async (req, res) => {
   try {
-    const { idPais } = req.params;
+    const { idCountry } = req.params;
+    console.log({idCountry})
     const country = await Country.findOne({
-      where: { id: idPais },
-      include: Activity,
+      where: { id: idCountry },
+      include: [{model: Activity, as: "activities"}],
+      
     });
 
     if (!country) {
@@ -32,15 +37,15 @@ module.exports.getCountriesById = async (req, res) => {
   }
 };
 module.exports.getCountriesByName = async (req, res) => {
-  const { name } = req.params;
+  const {query} = req.query;
   try {
     const countries = await Country.findAll({
       where: {
         name: {
-          [Op.iLike]: `%${name}%`,
+          [Op.iLike]: `${query}%`,
         },
       },
-      include: Activity,
+      include: [{model: Activity, as: "activities"}],
     });
     
     if (!countries) {

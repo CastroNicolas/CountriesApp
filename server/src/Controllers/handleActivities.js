@@ -1,38 +1,71 @@
-const { Activity, Country } = require('../db');
+const { Activity, Country } = require("../db");
 
-module.exports.postActivities = async(req, res) => {
-  
+module.exports.postActivities = async (req, res) => {
   try {
-      const { name, difficulty, hours, season, countries } = req.body;
-      const newActivity = await Activity.create({
-        name,
-        difficulty,
-        hours,
-        season,
-      });
-  
-      if (countries && countries.length > 0) {
-        const associatedCountries = await Country.findAll({
-          where: {
-            id: countries,
-          },
-        });
-  
-        await newActivity.setCountries(associatedCountries);
-      }
-  
-      res.status(201).json(newActivity);
-    } catch (error) {
-      res.status(500).json({ error: 'Error creating the tourist activity' });
-    }
-}
+    const { name, difficulty, duration, season, countriesId } = req.body;
+    console.log({ countriesId });
+    const newActivity = await Activity.create({
+      name,
+      difficulty,
+      duration,
+      season,
+    });
 
-module.exports.getActivities = async(req, res) => {
-    try {
-        const activities = await Activity.findAll();
-        res.status(200).json(activities);
-    }catch{
-        res.status(500).json({ error: 'Error getting country' });
-        
+    let countriesFound = [];
+
+    for (CountryName of countriesId) {
+      const countryFound = await Country.findOne({
+        where: { id: CountryName },
+        raw: true
+      });
+      if (countryFound) {
+        countriesFound.push(countryFound.id);
+      }
     }
-}
+    console.log({countriesFound})
+    await newActivity.addCountry(countriesFound);
+    const activityBD = await Activity.findAll({
+      where: {
+        name: newActivity.name,
+      },
+      include: [
+        {
+          model: Country,
+          as: "countries",
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
+          order: [["ASC"]],
+        },
+      ],
+    });
+    res.status(201).json(activityBD);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error: error.message || "Error creating the tourist activity" });
+  }
+};
+
+module.exports.getActivities = async (req, res) => {
+  try {
+    const activities = await Activity.findAll({
+      include: [
+        {
+          model: Country,
+          as: "countries",
+          attributes: ["id", "name"],
+          through: {
+            attributes: [],
+          },
+          order: [["ASC"]],
+        },
+      ],
+    });
+    res.status(200).json(activities);
+  } catch {
+    res.status(500).json({ error: "Error getting country" });
+  }
+};

@@ -4,8 +4,8 @@ const { postActivities, getActivities } = require("../Controllers/handleActiviti
 const router = Router();
 
 router.get('/countries', getCountries)
-router.get('/countries/id/:idPais',getCountriesById)
-router.get('/countries/name/:name', getCountriesByName)
+router.get('/countries/id/:idCountry',getCountriesById)
+router.get('/countries/name', getCountriesByName)
 router.post('/activities', postActivities)
 router.get('/activities',getActivities)
 

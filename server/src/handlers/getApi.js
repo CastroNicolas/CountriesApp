@@ -9,7 +9,7 @@ const getApiHandler = async () => {
         await Country.create({
             id: country.cca3,
             name: country.name.common,
-            imageFlag: country.flags.svg,
+            imageFlag: country.flags.png,
             continent: country.region,
             capital: country.capital?.[0] ?? "Unknown Capital",
             subregion:country.subregion,
