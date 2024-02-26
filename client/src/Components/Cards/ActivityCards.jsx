@@ -48,7 +48,7 @@ const ActivityCards = ({ activities }) => {
       <h2>THESE ARE THE ACTIVITIES CREATED SO FAR:</h2>
       <div className="FiltersContainer">
         <input
-        className="inputSearch"
+          className="inputSearch"
           type="text"
           placeholder="Filter by Name"
           value={filters.name}
@@ -69,6 +69,9 @@ const ActivityCards = ({ activities }) => {
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
+        <button onClick={() => navigate("/activity")}>
+          Do you want to create another activity?
+        </button>
       </div>
       <div className="ActivityCardsList">
         {currentItems.map((activity) => (

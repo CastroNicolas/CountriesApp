@@ -26,7 +26,6 @@ export const ActivityForm = () => {
     countriesId: "",
   });
 
-  const [created, setCreated] = useState(false);
 
   const allCountries = useSelector((state) => state.countries.allCountries);
   const [countriesCopied, setCountriesCopied] = useState([]);
@@ -40,22 +39,20 @@ export const ActivityForm = () => {
   const createActivity = async (formValues) => {
     try {
       const { data } = await axios.post(URL, formValues);
+  
       if (data.name) {
-        setCreated(true);
         alert("Activity created successfully");
         dispatch(getAllCountries());
+        // Reinicia los valores del formulario
+        setActivityValues('');
       }
     } catch (error) {
-      console.error("Error creating activity:", error.message); // Imprime el error en la consola
-  
-      // Muestra un mensaje de alerta basado en la respuesta del servidor
       error.response && error.response.data
-        ? alert(JSON.stringify(error.response.data, null, 2))
-        : alert("Error creating activity. Please check the console for details.");
+      ? alert(JSON.stringify(error.response.data, null, 2))
+      : alert("Error creating activity. Please check the console for details.");
     }
   };
   
-
   const handleSubmit = (event) => {
     event.preventDefault();
     createActivity(activityValues);
@@ -93,121 +90,96 @@ export const ActivityForm = () => {
     );
   };
 
-  const handleClick = () => {
-    setActivityValues({
-      name: "",
-      difficulty: "",
-      duration: "",
-      season: "",
-      countriesId: [],
-    });
-    setErrors({
-      name: "",
-      difficulty: "",
-      duration: "",
-      season: "",
-      countriesId: "",
-    })
-    setCreated(false);
-  };
-
   return (
     <div className="Formbody">
       <button className="FormButton" onClick={() => navigate("/home")}> ◀ BACK</button>
-      {!created ? (
-        <div className="FormContainer">
+      <div className="FormContainer">
 
-          <form className="formC" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor='name'>Name:</label>
-              <input
-                type='text'
-                name='name'
-                value={activityValues.name}
-                onChange={handleChange}
-              />
-              {errors.name && <span>{errors.name}</span>}
-            </div>
-            <div>
-              <label htmlFor='difficulty'>Select difficulty:</label>
-              <select
-                name='difficulty'
-                value={activityValues.difficulty}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select difficulty
-                </option>
-                <option value='1'>Difficulty 1</option>
-                <option value='2'>Difficulty 2</option>
-                <option value='3'>Difficulty 3</option>
-                <option value='4'>Difficulty 4</option>
-                <option value='5'>Difficulty 5</option>
-              </select>
-              {errors.difficulty && (
-                <span>{errors.difficulty}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor='duration'>Duration (hr):</label>
-              <input
-                type='number'
-                name='duration'
-                value={activityValues.duration}
-                onChange={handleChange}
-              />
-              {errors.duration && <span>{errors.duration}</span>}
-            </div>
-            <div>
-              <label htmlFor='season'>Select season:</label>
-              <select
-                name='season'
-                value={activityValues.season}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select season
-                </option>
-                <option value='Summer'>Summer</option>
-                <option value='Autumn'>Autumn</option>
-                <option value='Winter'>Winter</option>
-                <option value='Spring'>Spring</option>
-              </select>
-              {errors.season && <span>{errors.season}</span>}
-            </div>
-            <div>
-              <label htmlFor='countries'>Select country/es: </label>
-              <select
-                className="formCSelectMultiple"
-                name='countries'
-                value={activityValues.countriesId}
-                onChange={handleChangeCountries}
-                multiple
-              >
-                <option value='' disabled>
-                  Select country/es
-                </option>
-                {countriesCopied.map((country) => (
-                  <option
-                  onClick={() => {console.log(country.id)}} 
+        <form className="formC" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='name'>Name:</label>
+            <input
+              type='text'
+              name='name'
+              value={activityValues.name}
+              onChange={handleChange}
+            />
+            {errors.name && <span>{errors.name}</span>}
+          </div>
+          <div>
+            <label htmlFor='difficulty'>Select difficulty:</label>
+            <select
+              name='difficulty'
+              value={activityValues.difficulty}
+              onChange={handleChange}
+            >
+              <option value='' disabled>
+                Select difficulty
+              </option>
+              <option value='1'>Difficulty 1</option>
+              <option value='2'>Difficulty 2</option>
+              <option value='3'>Difficulty 3</option>
+              <option value='4'>Difficulty 4</option>
+              <option value='5'>Difficulty 5</option>
+            </select>
+            {errors.difficulty && (
+              <span>{errors.difficulty}</span>
+            )}
+          </div>
+          <div>
+            <label htmlFor='duration'>Duration (hr):</label>
+            <input
+              type='number'
+              name='duration'
+              value={activityValues.duration}
+              onChange={handleChange}
+            />
+            {errors.duration && <span>{errors.duration}</span>}
+          </div>
+          <div>
+            <label htmlFor='season'>Select season:</label>
+            <select
+              name='season'
+              value={activityValues.season}
+              onChange={handleChange}
+            >
+              <option value='' disabled>
+                Select season
+              </option>
+              <option value='Summer'>Summer</option>
+              <option value='Autumn'>Autumn</option>
+              <option value='Winter'>Winter</option>
+              <option value='Spring'>Spring</option>
+            </select>
+            {errors.season && <span>{errors.season}</span>}
+          </div>
+          <div>
+            <label htmlFor='countries'>Select country/es: </label>
+            <select
+              className="formCSelectMultiple"
+              name='countries'
+              value={activityValues.countriesId}
+              onChange={handleChangeCountries}
+              multiple
+            >
+              <option value='' disabled>
+                Select country/es
+              </option>
+              {countriesCopied.map((country) => (
+                <option
+                  onClick={() => { console.log(country.id) }}
                   value={country.id} key={country.id}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-              {errors.countriesId && (
-                <span>{errors.countriesId}</span>
-              )}
-            </div>
-            <button className="FormButtonSubmit" type='submit'>Create</button>
-          </form>
-        </div>
-
-      ) : (
-        <button className="FormButton" onClick={handleClick}>
-          Do you want to create another activity?
-        </button>
-      )}
+                  {country.name}
+                </option>
+              ))}
+            </select>
+            {errors.countriesId && (
+              <span>{errors.countriesId}</span>
+            )}
+          </div>
+          <button className="FormButtonSubmit" type='submit'>Create</button>
+        </form>
+      </div>
       <button className="FormButton" onClick={() => navigate("/activities")}>
         Do you want to see all the activities created so far?
       </button>
