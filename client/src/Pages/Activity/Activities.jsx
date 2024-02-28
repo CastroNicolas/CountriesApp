@@ -6,7 +6,9 @@ const URL = "http://localhost:3001/activities";
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
-
+  const updateActivities = (newActivities) => {
+    setActivities(newActivities);
+  };
   const getAllActivities = async () => {
     try {
       const { data } = await axios(URL);
@@ -23,7 +25,7 @@ const Activities = () => {
 
   return (
     <div>
-      <ActivityCards activities={activities} />
+      <ActivityCards activities={activities} updateActivities={updateActivities} />
     </div>
   );
 };

@@ -39,28 +39,32 @@ export const ActivityForm = () => {
   const createActivity = async (formValues) => {
     try {
       const { data } = await axios.post(URL, formValues);
-  
+
       if (data.name) {
-        alert("Activity created successfully");
         dispatch(getAllCountries());
-        // Reinicia los valores del formulario
-        setActivityValues('');
       }
     } catch (error) {
       error.response && error.response.data
-      ? alert(JSON.stringify(error.response.data, null, 2))
-      : alert("Error creating activity. Please check the console for details.");
+        ? alert(JSON.stringify(error.response.data, null, 2))
+        : alert("Error creating activity. Please check the console for details.");
     }
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     createActivity(activityValues);
+    setActivityValues({
+      name: "",
+      difficulty: "",
+      duration: "",
+      season: "",
+      countriesId: [],
+    });
+    alert("Activity created successfully");
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target
-    console.log(event.target.value)
 
     setActivityValues({
       ...activityValues,
@@ -167,7 +171,6 @@ export const ActivityForm = () => {
               </option>
               {countriesCopied.map((country) => (
                 <option
-                  onClick={() => { console.log(country.id) }}
                   value={country.id} key={country.id}>
                   {country.name}
                 </option>

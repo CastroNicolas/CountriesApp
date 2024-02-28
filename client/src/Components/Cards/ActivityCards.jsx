@@ -1,35 +1,37 @@
 import { usePagination } from "../../Hooks/UsePagination";
 import ActivityCard from "../Card/activityCard";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import './ActivityCard.css'; // Import your CSS file for styles
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const ActivityCards = ({ activities }) => {
+const ActivityCards = ({ activities, updateActivities  }) => {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
     name: "",
     difficulty: "",
   });
-
+  const [deletedActivities, setDeletedActivities] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
-
-  const filteredActivities = activities
-    .filter((activity) => {
-      const nameMatches = activity.name.toLowerCase().includes(filters.name.toLowerCase());
-      const difficultyMatches =
-        filters.difficulty === "" || parseInt(activity.difficulty, 10) === parseInt(filters.difficulty, 10);
-      return nameMatches && difficultyMatches;
-    })
-    .sort((a, b) => {
-      const nameA = a.name.toLowerCase();
-      const nameB = b.name.toLowerCase();
-      const compareResult = sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-      return compareResult;
-    });
+ 
+  const filteredActivities = useMemo(() => {
+    return activities
+      .filter((activity) => {
+        const nameMatches = activity.name.toLowerCase().includes(filters.name.toLowerCase());
+        const difficultyMatches =
+          filters.difficulty === "" || parseInt(activity.difficulty, 10) === parseInt(filters.difficulty, 10);
+        return nameMatches && difficultyMatches;
+      })
+      .sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        const compareResult = sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+        return compareResult;
+      });
+  }, [activities, filters.name, filters.difficulty, sortOrder]);
 
   const { currentPage, currentItems, nextPage, prevPage, totalPages } =
-    usePagination(filteredActivities, 10);
+  usePagination(filteredActivities, 10);
 
   const handleFilterChange = (filterName, value) => {
     setFilters({
@@ -41,6 +43,15 @@ const ActivityCards = ({ activities }) => {
   const handleSortOrderChange = (value) => {
     setSortOrder(value);
   };
+  
+  const handleDeleteActivity = (activityId) => {
+    const deletedActivity = currentItems.find((activity) => activity.id === activityId);
+    setDeletedActivities([deletedActivity, ...deletedActivities]);
+    const updatedCurrentItems = currentItems.filter((activity) => activity.id !== activityId);
+
+    updateActivities(updatedCurrentItems);
+  };
+
 
   return (
     <div className="ActivitiesContainer">
@@ -74,8 +85,12 @@ const ActivityCards = ({ activities }) => {
         </button>
       </div>
       <div className="ActivityCardsList">
+        
         {currentItems.map((activity) => (
-          <ActivityCard key={activity.id} activity={activity} />
+            <div key={activity.id} className="ActivityCardContainer">
+            <ActivityCard activity={activity} />
+            <button onClick={() => handleDeleteActivity(activity.id)}>Delete</button>
+          </div>
         ))}
       </div>
       <div className="ActivityCardsControls">

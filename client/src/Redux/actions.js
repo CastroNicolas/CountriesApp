@@ -59,10 +59,3 @@ export const selectCountry = (country) => {
     payload: country,
   };
 };
-
-// export const sortActivities = (order) => {
-//   return {
-//     type: "SORT_ACTIVITIES",
-//     payload: order,
-//     }
-// };
