@@ -36,7 +36,6 @@ const { Country, Activity } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-// ACTUALIZAR EL NOMBRE DE LA TABLA A => CountriesActivity
 Country.belongsToMany(Activity, {
   as: "activities",
   through: "CountryActivity",

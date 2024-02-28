@@ -3,7 +3,6 @@ const { Activity, Country } = require("../db");
 module.exports.postActivities = async (req, res) => {
   try {
     const { name, difficulty, duration, season, countriesId } = req.body;
-    console.log({ countriesId });
     const newActivity = await Activity.create({
       name,
       difficulty,
@@ -22,7 +21,6 @@ module.exports.postActivities = async (req, res) => {
         countriesFound.push(countryFound.id);
       }
     }
-    console.log({countriesFound})
     await newActivity.addCountry(countriesFound);
     const activityBD = await Activity.findAll({
       where: {
@@ -42,7 +40,6 @@ module.exports.postActivities = async (req, res) => {
     });
     res.status(201).json(activityBD);
   } catch (error) {
-    console.log(error);
     res
       .status(500)
       .json({ error: error.message || "Error creating the tourist activity" });

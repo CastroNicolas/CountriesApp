@@ -11,7 +11,6 @@ module.exports.getCountries = async (req, res) => {
     });
     res.status(200).json(countries);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Error getting countries" });
   }
 };
@@ -19,7 +18,6 @@ module.exports.getCountries = async (req, res) => {
 module.exports.getCountriesById = async (req, res) => {
   try {
     const { idCountry } = req.params;
-    console.log({idCountry})
     const country = await Country.findOne({
       where: { id: idCountry },
       include: [{model: Activity, as: "activities"}],
@@ -32,7 +30,6 @@ module.exports.getCountriesById = async (req, res) => {
 
     res.status(200).json(country);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Error getting country" });
   }
 };
