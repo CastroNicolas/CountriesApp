@@ -31,9 +31,11 @@ export const HomePage = () => {
   }, [filteredResults]);
   
   const handleResetFilters = () => {
-  
     dispatch(filterByContinent('All'));
     dispatch(sortCountries('All'));
+    setOrder('Ascending')
+    setContinent('All')
+    setOrderPopulation('Ascending')
   }; 
 
   const handleContinentFilter = (e) => {

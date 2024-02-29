@@ -37,12 +37,18 @@ export const ActivityForm = () => {
   const dispatch = useDispatch();
 
   const createActivity = async (formValues) => {
+    const { name, countriesId, difficulty, duration, season } = errors
+    if (name || countriesId || difficulty || duration || season) {
+      alert('Please use valid data.')
+      return
+    }
     try {
       const { data } = await axios.post(URL, formValues);
 
       if (data.name) {
         dispatch(getAllCountries());
       }
+      alert("Activity created successfully");
     } catch (error) {
       error.response && error.response.data
         ? alert(JSON.stringify(error.response.data, null, 2))
@@ -52,6 +58,11 @@ export const ActivityForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const { name, countriesId, difficulty, duration, season } = activityValues
+    if (!name || !countriesId.length || !difficulty || !duration || !season) {
+      alert('All fields are required.')
+      return
+    }
     createActivity(activityValues);
     setActivityValues({
       name: "",
@@ -60,7 +71,6 @@ export const ActivityForm = () => {
       season: "",
       countriesId: [],
     });
-    alert("Activity created successfully");
   };
 
   const handleChange = (event) => {
