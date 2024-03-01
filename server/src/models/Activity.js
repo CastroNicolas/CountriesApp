@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
          type: DataTypes.INTEGER,
          allowNull: false,
          validate: {
-           min: 0, // duration cannot be negative
+           min: 0, 
          },
        },
      season: {
