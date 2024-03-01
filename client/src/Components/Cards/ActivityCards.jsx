@@ -1,17 +1,16 @@
 import { usePagination } from "../../Hooks/UsePagination";
 import ActivityCard from "../Card/activityCard";
 import { useMemo, useState } from "react";
-import './ActivityCard.css'; // Import your CSS file for styles
+import './ActivityCard.css';
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const ActivityCards = ({ activities, updateActivities  }) => {
+const ActivityCards = ({ activities }) => {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
     name: "",
     difficulty: "",
   });
-  const [deletedActivities, setDeletedActivities] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
  
   const filteredActivities = useMemo(() => {
@@ -43,15 +42,6 @@ const ActivityCards = ({ activities, updateActivities  }) => {
   const handleSortOrderChange = (value) => {
     setSortOrder(value);
   };
-  
-  const handleDeleteActivity = (activityId) => {
-    const deletedActivity = currentItems.find((activity) => activity.id === activityId);
-    setDeletedActivities([deletedActivity, ...deletedActivities]);
-    const updatedCurrentItems = currentItems.filter((activity) => activity.id !== activityId);
-
-    updateActivities(updatedCurrentItems);
-  };
-
 
   return (
     <div className="ActivitiesContainer">
@@ -89,7 +79,6 @@ const ActivityCards = ({ activities, updateActivities  }) => {
         {currentItems.map((activity) => (
             <div key={activity.id} className="ActivityCardContainer">
             <ActivityCard activity={activity} />
-            <button onClick={() => handleDeleteActivity(activity.id)}>Delete</button>
           </div>
         ))}
       </div>
